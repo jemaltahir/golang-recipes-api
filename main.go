@@ -1,3 +1,20 @@
+// Recipe API
+//
+// This is a sample recipe API. You can use it to manage your recipes.
+//
+//	 Schemes: http
+//	 BasePath: /
+//	 Version: 1.0.0
+//	 License: MIT http://opensource.org/licenses/MIT
+//	Host: localhost:8080
+//
+//	Consumes:
+//	- application/json
+//
+//	Produces:
+//	- application/json
+// swagger:meta
+
 package main
 
 import (
@@ -38,6 +55,25 @@ func NewRecipeHandler(c *gin.Context) {
 	recipes = append(recipes, recipe)
 	c.JSON(200, gin.H{"recipe": recipe})
 }
+
+// swagger:operation PUT /recipes/{id} recipes updateRecipe
+// Update a recipe
+// ---
+// parameters:
+// - name: id
+//   in: path
+//   description: ID of the recipe to update
+//   required: true
+//   type: string
+// produces:
+// - application/json
+// responses:
+//   '200':
+//     description: Successfull response
+//   '404':
+//     description: Recipe not found
+//   '400':
+//     description: Bad request
 
 func UpdateRecipeHandler(c *gin.Context) {
 	id := c.Param("id")
@@ -90,6 +126,16 @@ func SearchRecipesHandler(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"recipes": listOfRecipes})
 }
+
+// swagger:operation GET /recipes recipes listRecipes
+// Returns a list of recipes
+// ---
+// produces:
+// - application/json
+// responses:
+//   '200':
+//     description: Successfull response
+
 func ListRecipesHandler(c *gin.Context) {
 	c.JSON(200, gin.H{"recipes": recipes})
 }
